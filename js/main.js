@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Gentle fade navigation instead of scroll
-  /*
   document.querySelectorAll('.nav-list a, a[href^="#"]').forEach((link) => {
     link.addEventListener("click", function (e) {
       const href = this.getAttribute("href");
@@ -49,28 +48,6 @@ document.addEventListener("DOMContentLoaded", function () {
           }, 400);
         }
       }
-    });
-  });*/
-
-  document.querySelectorAll('.nav-list a, a[href^="#"]').forEach((link) => {
-    link.addEventListener("click", function (e) {
-      const href = this.getAttribute("href");
-      if (!href || !href.startsWith("#")) return;
-
-      const target = document.querySelector(href);
-      if (!target) return;
-
-      e.preventDefault();
-
-      // Close mobile menu
-      menuToggle.classList.remove("active");
-      nav.classList.remove("open");
-
-      const headerHeight = document.querySelector(".header").offsetHeight;
-      const targetY =
-        target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-
-      smoothScrollTo(targetY, 1900); // long & calm
     });
   });
 
