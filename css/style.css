@@ -1,4 +1,6 @@
 :root {
+  --color-olive-light-soft: #e4ead9; /* light, calming olive */
+  --color-olive-wash: #f1f4ec; /* very light, readable olive */
   --color-sand: #e8dfd4;
   --color-sand-light: #f5f1eb;
   --color-cream: #faf8f5;
@@ -405,7 +407,7 @@ a:hover {
 }
 
 .yoga-section {
-  background: var(--color-sand-light);
+  background-color: var(--color-olive-wash);
 }
 
 .yoga-content {
@@ -1130,4 +1132,41 @@ a:hover {
   .logofront {
     height: 100px;
   }
+}
+
+/* Yoga = olive */
+.service-card.service-yoga {
+  background-color: var(--color-olive-light-soft);
+}
+
+.service-card.service-yoga h3,
+.service-card.service-yoga p,
+.service-card.service-yoga a {
+  color: var(--color-white);
+}
+
+/* Massage = sand */
+.service-card.service-massage {
+  background-color: var(--color-earth);
+}
+
+.service-card.service-massage h3,
+.service-card.service-massage p,
+.service-card.service-massage a {
+  color: var(--color-white);
+}
+
+.service-card.service-yoga .btn-link {
+  color: var(--color-white);
+}
+
+.service-card.service-yoga .btn-link:hover {
+  opacity: 0.85;
+}
+
+.service-card.service-massage .btn-link {
+  color: var(--color-white);
+}
+.service-card.service-yoga {
+  background-color: #7a8b6a; /* softer olive */
 }
