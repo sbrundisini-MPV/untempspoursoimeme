@@ -1127,4 +1127,7 @@ a:hover {
   .logo-img {
     height: 48px;
   }
+  .logofront {
+    height: 100px;
+  }
 }
