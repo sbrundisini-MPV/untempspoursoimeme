@@ -1,6 +1,6 @@
 :root {
   --color-olive-light-soft: #e4ead9; /* light, calming olive */
-  --color-olive-wash: #f1f4ec; /* very light, readable olive */
+  --color-olive-wash: #e4edd6; /* very light, readable olive */
   --color-sand: #e8dfd4;
   --color-sand-light: #f5f1eb;
   --color-cream: #faf8f5;
@@ -12,7 +12,7 @@
   --color-olive-light: #b8c4ad;
   --color-text: #3a3a3a;
   --color-text-light: #555555;
-
+  --color-sand-deep-soft: #e6d6be; /* warm, darker sand */
   --font-heading: "Cormorant Garamond", serif;
   --font-body: "Nunito Sans", sans-serif;
 
@@ -485,9 +485,13 @@ a:hover {
 }
 
 .massage-section {
-  background: var(--color-cream);
+  background-color: var(--color-sand-deep-soft);
 }
-
+.service-card.service-massage h3,
+.service-card.service-massage p,
+.service-card.service-massage a {
+  color: var(--color-earth-dark);
+}
 .massage-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -584,7 +588,15 @@ a:hover {
 }
 
 .stages-section {
-  background: var(--color-sand-light);
+  background-color: var(--color-sand-light);
+}
+.stages-section h2,
+.stages-section h3 {
+  color: var(--color-earth-dark);
+}
+
+.stages-section p {
+  color: var(--color-text);
 }
 
 .stages-grid {
@@ -1169,4 +1181,25 @@ a:hover {
 }
 .service-card.service-yoga {
   background-color: #7a8b6a; /* softer olive */
+}
+.lieu-image-wrapper {
+  margin-top: 64px;
+  display: flex;
+  justify-content: center;
+}
+
+.lieu-image {
+  max-width: 900px;
+  width: 100%;
+  border-radius: 14px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+}
+@media (max-width: 768px) {
+  .lieu-image-wrapper {
+    margin-top: 40px;
+  }
+
+  .lieu-image {
+    border-radius: 10px;
+  }
 }
