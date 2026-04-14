@@ -248,6 +248,110 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // ===== Events carousel =====
+  const carousel = document.getElementById("eventsCarousel");
+  if (carousel) {
+    const track = document.getElementById("eventsTrack");
+    const prevBtn = carousel.querySelector(".carousel-prev");
+    const nextBtn = carousel.querySelector(".carousel-next");
+    const dotsContainer = document.getElementById("eventsDots");
+    const cards = Array.from(track.querySelectorAll(".event-card"));
+
+    cards.forEach((_, i) => {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.setAttribute("aria-label", "Go to slide " + (i + 1));
+      dot.addEventListener("click", () => scrollToCard(i));
+      dotsContainer.appendChild(dot);
+    });
+    const dots = Array.from(dotsContainer.children);
+
+    function scrollToCard(index) {
+      const card = cards[index];
+      if (!card) return;
+      track.scrollTo({
+        left: card.offsetLeft - track.offsetLeft,
+        behavior: "smooth",
+      });
+    }
+
+    function currentIndex() {
+      const scrollL = track.scrollLeft;
+      let best = 0;
+      let bestDist = Infinity;
+      cards.forEach((c, i) => {
+        const d = Math.abs(c.offsetLeft - track.offsetLeft - scrollL);
+        if (d < bestDist) {
+          bestDist = d;
+          best = i;
+        }
+      });
+      return best;
+    }
+
+    function updateUI() {
+      const idx = currentIndex();
+      dots.forEach((d, i) => d.classList.toggle("active", i === idx));
+      prevBtn.disabled = idx <= 0;
+      nextBtn.disabled = idx >= cards.length - 1;
+    }
+
+    prevBtn.addEventListener("click", () =>
+      scrollToCard(Math.max(0, currentIndex() - 1)),
+    );
+    nextBtn.addEventListener("click", () =>
+      scrollToCard(Math.min(cards.length - 1, currentIndex() + 1)),
+    );
+    track.addEventListener("scroll", () => {
+      window.requestAnimationFrame(updateUI);
+    });
+    updateUI();
+
+    // ===== Event modal =====
+    const modal = document.getElementById("eventModal");
+    const modalTitle = document.getElementById("eventModalTitle");
+    const modalDate = document.getElementById("eventModalDate");
+    const modalFrame = document.getElementById("eventModalFrame");
+    const modalDownload = document.getElementById("eventModalDownload");
+
+    function openModal(card) {
+      const lang = localStorage.getItem("lang") || "fr";
+      const pdf = card.dataset.pdf;
+      modalTitle.textContent =
+        card.dataset["title" + (lang === "en" ? "En" : "Fr")] ||
+        card.dataset.titleFr;
+      modalDate.textContent =
+        card.dataset["date" + (lang === "en" ? "En" : "Fr")] ||
+        card.dataset.dateFr;
+      modalFrame.src = pdf + "#view=FitH";
+      modalDownload.href = pdf;
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+    }
+
+    function closeModal() {
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+      modalFrame.src = "";
+      document.body.classList.remove("modal-open");
+    }
+
+    cards.forEach((card) => {
+      const preview = card.querySelector(".event-preview");
+      const openBtn = card.querySelector(".event-open");
+      preview.addEventListener("click", () => openModal(card));
+      openBtn.addEventListener("click", () => openModal(card));
+    });
+
+    modal.querySelectorAll("[data-modal-close]").forEach((el) => {
+      el.addEventListener("click", closeModal);
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("open")) closeModal();
+    });
+  }
+
   window.addEventListener("scroll", () => {
     if (window.scrollY > 100) {
       header.style.boxShadow = "0 2px 20px rgba(0,0,0,0.08)";
