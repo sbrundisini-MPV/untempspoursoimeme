@@ -1509,3 +1509,75 @@ body.modal-open {
     border-radius: 0;
   }
 }
+
+/* ============ Pulsing Events CTA in header ============ */
+.events-pulse {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px 8px 14px;
+  border-radius: 999px;
+  background: var(--color-olive);
+  color: var(--color-white);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  box-shadow: 0 0 0 0 rgba(107, 122, 94, 0.55);
+  animation: eventsPulse 2.4s ease-in-out infinite;
+  transition: var(--transition);
+}
+.events-pulse:hover,
+.events-pulse:focus,
+.events-pulse:active,
+.events-pulse:visited:hover {
+  background: var(--color-earth-dark);
+  color: var(--color-white);
+  animation-play-state: paused;
+  transform: translateY(-1px);
+}
+.events-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #f2c14e;
+  box-shadow: 0 0 0 0 rgba(242, 193, 78, 0.7);
+  animation: eventsDot 2.4s ease-in-out infinite;
+}
+
+@keyframes eventsPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(107, 122, 94, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(107, 122, 94, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(107, 122, 94, 0);
+  }
+}
+@keyframes eventsDot {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(242, 193, 78, 0.7);
+  }
+  50% {
+    transform: scale(1.25);
+    box-shadow: 0 0 0 6px rgba(242, 193, 78, 0);
+  }
+}
+
+@media (max-width: 640px) {
+  .events-pulse {
+    padding: 6px 12px;
+    font-size: 0.78rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .events-pulse,
+  .events-pulse-dot {
+    animation: none;
+  }
+}
